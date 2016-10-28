@@ -218,8 +218,7 @@ input=""
 while [ "$input" != "y" ]; do
     read -rsn1 input;
     if [ "$input" = "y" ]; then
-        sudo rm -f /etc/profile.d/zotac-setup.sh
-        #sudo rm -f ${HOME}/Desktop/complete-setup.desktop
+        #sudo rm -f ${HOME}/Desktop/zotac-setup.desktop
         sudo reboot
     fi;
 done
