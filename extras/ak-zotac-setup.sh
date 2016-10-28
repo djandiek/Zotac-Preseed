@@ -1,11 +1,11 @@
 #!/bin/bash
 
-clear
 if test ${GDMSESSION} != "ubuntu";
 then
     echo "This setup script will only work if Ubuntu is installed. You are using ${GDMSESSION}"
     exit
 fi;
+
 clear
 echo "This script does the final setup of the Zotac ADS."
 echo ""
@@ -219,7 +219,7 @@ while [ "$input" != "y" ]; do
     read -rsn1 input;
     if [ "$input" = "y" ]; then
         sudo rm -f /etc/profile.d/zotac-setup.sh
-        sudo rm -f ${HOME}/Desktop/complete-setup.desktop
+        #sudo rm -f ${HOME}/Desktop/complete-setup.desktop
         sudo reboot
     fi;
 done
