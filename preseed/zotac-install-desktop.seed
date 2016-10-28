@@ -117,9 +117,8 @@ d-i pkgsel/update-policy select unattended-upgrades
 
 #d-i preseed/late_command string
 ubiquity ubiquity/success_command string \
-in-target wget -O /opt/zotac-setup.sh http://175.103.28.7/xkloud/zotac/ak-zotac-setup.sh ; \
-in-target chmod +x /opt/zotac-setup.sh ; \
 in-target mkdir -p /etc/skel/Desktop ; \
 in-target wget -O /etc/skel/Desktop/complete-setup.desktop http://175.103.28.7/xkloud/zotac/ak-zotac-complete-setup.desktop ; \
 in-target chmod +x /etc/skel/Desktop/complete-setup.desktop ; \
-in-target wget -O /etc/skel/ak_installer.sh http://175.103.28.7/xkloud/zotac/ak_installer.sh
+in-target wget -O /opt/ak_installer.sh http://175.103.28.7/xkloud/zotac/ak_installer.sh; \
+in-target in-target chmod +x /opt/ak_installer.sh
