@@ -120,5 +120,5 @@ ubiquity ubiquity/success_command string \
 in-target mkdir -p /home/eze_zbox/Desktop ; \
 in-target wget -O /home/eze_zbox/Desktop/zotac-setup.desktop http://175.103.28.7/xkloud/zotac/ak-zotac-setup.desktop ; \
 in-target chmod +x /home/eze_zbox/Desktop/zotac-setup.desktop ; \
-in-target wget -q -O /home/eze_zbox/menu.sh http://175.103.28.7/xkloud/zotac/ak_menu.sh \
+in-target wget -O /home/eze_zbox/menu.sh http://175.103.28.7/xkloud/zotac/ak_menu.sh \
 in-target chmod +x /home/eze_zbox/menu.sh
