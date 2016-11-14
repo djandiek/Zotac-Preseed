@@ -41,6 +41,11 @@ sleep 1
 sudo apt-get -qyf install software-properties-common
 sudo add-apt-repository -y ppa:mc3man/trusty-media
 sudo add-apt-repository -y ppa:graphics-drivers/ppa
+
+rm -f linux_signing_key.pub
+wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list'
+
 sudo apt-get update
 sudo apt-get -qy dist-upgrade
 sudo apt-get -qy upgrade
@@ -48,7 +53,7 @@ sudo apt-get -qy upgrade
 clear
 echo "Installing additional software"
 sudo ubuntu-drivers autoinstall
-sudo apt-get -qy install unattended-upgrades build-essential ca-certificates curl ftp openssh-server openssl python tcpd wget arandr compiz compiz-plugins compizconfig-settings-manager dconf-tools mc unclutter
+sudo apt-get -qy install unattended-upgrades build-essential ca-certificates curl ftp openssh-server openssl python tcpd wget arandr compiz compiz-plugins compizconfig-settings-manager dconf-tools mc unclutter google-chrome-stable
 
 sudo dpkg --add-architecture i386
 sudo apt-get -qy install libjpeg62:i386 libxinerama1:i386 libxrandr2:i386 libxtst6:i386
@@ -62,6 +67,10 @@ sudo echo 'APT::Periodic::AutocleanInterval "7";' >> /etc/apt/apt.conf.d/20auto-
 sudo sed -i "s/Prompt=lts/Prompt=never/" /etc/update-manager/release-upgrades
 sudo sed -i "s/\/\/Unattended-Upgrade::Automatic-Reboot \"false\"/Unattended-Upgrade::Automatic-Reboot \"true\"/" /etc/apt/apt.conf.d/50unattended-upgrades
 sudo /etc/init.d/unattended-upgrades restart
+
+#python -c "import gnomekeyring;gnomekeyring.change_password_sync('login', 'zz_3142_eze:11', '');"
+python -c "import gnomekeyring;gnomekeyring.unlock_sync(None, 'zz_3142_eze:11');"
+
 
 # Install TeamViewer
 clear
@@ -92,13 +101,6 @@ else
 fi
 
 clear
-echo "Installing Google Chrome"
-rm -f linux_signing_key.pub
-wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google.list'
-sudo apt-get update
-sudo apt-get install -qy --force-yes -y google-chrome-stable
-
 # Create Chrome auto-start item
 echo "Create Chrome auto-start item"
 mkdir -p ${HOME}/.config/autostart
@@ -200,26 +202,33 @@ done
 
 clear
 echo "Final steps to do manually:";
-echo -e "\t2. Configure TeamViewer as required. Once finished, exit TeamViewer\n";
+echo -e "\t2. Configure TeamViewer as required.\n";
+echo -e "\tThe password is already set to 'eze_zotac_ss'.\n"
+echo -e "\tOnce finished, exit TeamViewer"
 echo "Press 'Y' to continue"
 input=""
 while [ "$input" != "y" ]; do
     read -rsn1 input;
     if [ "$input" = "y" ]; then
         sudo /usr/bin/teamviewer daemon start &> /dev/null
+        sudo teamviewer passwd eze_zotac_ss
         /usr/bin/teamviewer &> /dev/null
     fi;
 done
 
 clear
-echo "A reboot is required. Press 'Y' to continue... ";
+echo "A reboot is required.";
 echo "NOTE: When the system reboots, ensure EVERYTHING is tested!!!"
+echo "If asked to setup a keyring password, just leave it blank."
+echo ""
+echo "Press 'Y' to continue... "
 input=""
 while [ "$input" != "y" ]; do
     read -rsn1 input;
     if [ "$input" = "y" ]; then
         sudo rm -f /etc/profile.d/zotac-setup.sh
         #sudo rm -f ${HOME}/Desktop/complete-setup.desktop
+        rm -f ~/.local/share/keyrings/*.keyring
         sudo reboot
     fi;
 done
