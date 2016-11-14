@@ -53,7 +53,7 @@ sudo dpkg --add-architecture i386
 sudo apt-get -qy install libjpeg62:i386 libxinerama1:i386 libxrandr2:i386 libxtst6:i386
 clear
 echo "Setup auto-updates for security patches etc"
-sudo dpkg-reconfigure -plow unattended-upgrades
+#sudo dpkg-reconfigure -plow unattended-upgrades
 # Setup auto-updates for security patches etc
 sudo echo 'APT::Periodic::Update-Package-Lists "7";' > /etc/apt/apt.conf.d/20auto-upgrades
 sudo echo 'APT::Periodic::Unattended-Upgrade "7";' >> /etc/apt/apt.conf.d/20auto-upgrades
