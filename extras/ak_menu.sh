@@ -44,7 +44,7 @@ case ${choice} in
     script="install_andrejs_additions.sh"
 ;;
 D)
-    sudo rm -f ${HOME}/Desktop/zotac-setup.desktop
+    rm -f ${HOME}/Desktop/zotac-setup.desktop
     exit;
 ;;
 *)
