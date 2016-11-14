@@ -165,14 +165,14 @@ rm -f /tmp/bootup
 
 clear
 echo "Setup auto-updates for security patches etc"
-sudo dpkg-reconfigure -plow unattended-upgrades
+#sudo dpkg-reconfigure -plow unattended-upgrades
 # Setup auto-updates for security patches etc
 sudo echo 'APT::Periodic::Update-Package-Lists "7";' > /etc/apt/apt.conf.d/20auto-upgrades
 sudo echo 'APT::Periodic::Unattended-Upgrade "7";' >> /etc/apt/apt.conf.d/20auto-upgrades
 sudo echo 'APT::Periodic::AutocleanInterval "7";' >> /etc/apt/apt.conf.d/20auto-upgrades
-
+sudo sed -i "s/Prompt=lts/Prompt=never/" /etc/update-manager/release-upgrades
 sudo sed -i "s/\/\/Unattended-Upgrade::Automatic-Reboot \"false\"/Unattended-Upgrade::Automatic-Reboot \"true\"/" /etc/apt/apt.conf.d/50unattended-upgrades
-
+sudo /etc/init.d/unattended-upgrades restart
 # Start TeamViewer first time to setup
 sudo teamviewer --daemon start
 clear
