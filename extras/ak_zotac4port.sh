@@ -21,16 +21,6 @@ echo
 read -n 1 -p "Is this a Dual Port Rotated (portrait) setup? [y/n]: " -t 10 dualport
 
 clear
-echo "Updating Ubuntu Installation (security patches etc)"
-echo "This step will take several minutes"
-sleep 1
-sudo apt-get -qyf install software-properties-common
-sudo add-apt-repository -y ppa:mc3man/trusty-media
-sudo add-apt-repository -y ppa:graphics-drivers/ppa
-sudo apt-get update
-sudo apt-get -qy dist-upgrade
-sudo apt-get -qy upgrade
-clear
 echo "Cleaning up non-essential software"
 sudo apt-get -qy purge unity-scope-imdb unity-scope-musicstores unity-scope-zotero unity-scope-click-autopilot \
 unity-scope-deviantart unity-scope-gallica unity-scope-gdocs unity-scope-github unity-scope-googlenews \
@@ -43,6 +33,17 @@ unity-scope-virtualbox unity-scope-yelp unity-webapps-service account-plugin-ubu
 gnome-games gbrainy libreoffice*
 sudo apt-get -qy autoremove
 sudo apt-get clean
+
+clear
+echo "Updating Ubuntu Installation (security patches etc)"
+echo "This step will take several minutes"
+sleep 1
+sudo apt-get -qyf install software-properties-common
+sudo add-apt-repository -y ppa:mc3man/trusty-media
+sudo add-apt-repository -y ppa:graphics-drivers/ppa
+sudo apt-get update
+sudo apt-get -qy dist-upgrade
+sudo apt-get -qy upgrade
 
 clear
 echo "Installing additional software"
