@@ -68,10 +68,6 @@ sudo sed -i "s/Prompt=lts/Prompt=never/" /etc/update-manager/release-upgrades
 sudo sed -i "s/\/\/Unattended-Upgrade::Automatic-Reboot \"false\"/Unattended-Upgrade::Automatic-Reboot \"true\"/" /etc/apt/apt.conf.d/50unattended-upgrades
 sudo /etc/init.d/unattended-upgrades restart
 
-#python -c "import gnomekeyring;gnomekeyring.change_password_sync('login', 'zz_3142_eze:11', '');"
-python -c "import gnomekeyring;gnomekeyring.unlock_sync(None, 'zz_3142_eze:11');"
-
-
 # Install TeamViewer
 clear
 echo "Teamviewer Installation"
