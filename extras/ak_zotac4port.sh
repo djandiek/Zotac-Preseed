@@ -98,6 +98,11 @@ fi
 
 clear
 # Create Chrome auto-start item
+if test -z ${ads_url};
+then
+    ads_url='file:///var/www/ADS__STANDALONE_DATA/zbox/zbox_player.htm'
+fi
+
 echo "Create Chrome auto-start item"
 mkdir -p ${HOME}/.config/autostart
 cat << ADSEOF1 > ${HOME}/.config/autostart/00-ads-browser.desktop
