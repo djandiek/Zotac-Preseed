@@ -8,14 +8,19 @@ echo "Current machine details: ${machine}"
 echo
 
 echo "Please select an option from the menu:"
+echo "--------------------------------------"
+echo "0. Install Andrej's Additions (Run first usually)"
 echo "1. Setup Zotac 4 Port (Ubuntu installation only)"
 echo "2. Setup Zotac Nano (Lubuntu installation only)"
+echo "---"
 echo "3. Lubuntu - Setup Chrome ADS URL options (Existing Lubuntu installation only)"
 echo "4. Ubuntu - Setup Chrome ADS URL options (Existing Ubuntu installation only)"
+echo "---"
 echo "5. Install Crash/Hang Fix (Existing Lubuntu installation only)"
 echo "6. Change screen rotation (Existing Lubuntu installation only)"
-echo "0. Install Andrej's Additions"
+echo "---"
 echo "D. Delete Desktop setup item"
+echo "---"
 echo "Q. Quit"
 echo
 
