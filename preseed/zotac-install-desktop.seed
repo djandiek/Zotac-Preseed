@@ -1,3 +1,7 @@
+# Unmount drives with active partitions. Without this command all the installation process would stop and require confirmation to unmount drives that are already mounted.
+d-i preseed/early_command string umount /media || true ; \
+dd if=/dev/zero of=/dev/sda bs=512 count=1 conv=notrunc ;
+
 ####################################################################
 # General
 ####################################################################
