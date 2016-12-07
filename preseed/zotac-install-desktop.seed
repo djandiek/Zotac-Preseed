@@ -120,7 +120,7 @@ d-i pkgsel/language-packs multiselect en
 
 # Whether to upgrade packages after debootstrap.
 # Allowed values: none, safe-upgrade, full-upgrade
-d-i pkgsel/upgrade select none
+d-i pkgsel/upgrade select full-upgrade
 
 # Policy for applying updates. May be "none" (no automatic updates),
 d-i pkgsel/update-policy select unattended-upgrades
