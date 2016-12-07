@@ -29,8 +29,9 @@ unity-scope-soundcloud unity-scope-sshsearch unity-scope-yahoostock unity-lens-p
 unity-scope-audacious unity-scope-chromiumbookmarks unity-scope-clementine unity-scope-click unity-scope-colourlovers \
 unity-scope-gdrive unity-scope-gmusicbrowser unity-scope-gourmet unity-scope-guayadeque unity-scope-mediascanner2 \
 unity-scope-musique unity-scope-openclipart unity-scope-texdoc unity-scope-tomboy unity-scope-video-remote \
-unity-scope-virtualbox unity-scope-yelp unity-webapps-service account-plugin-ubuntuone ubuntu-purchase-service \
-gnome-games gbrainy thunderbird libreoffice*
+unity-scope-yelp unity-webapps-service account-plugin-ubuntuone ubuntu-purchase-service gnome-games gbrainy \
+thunderbird libreoffice*
+
 sudo apt-get -qy autoremove
 sudo apt-get clean
 
