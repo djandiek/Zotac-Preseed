@@ -173,8 +173,6 @@ sudo echo 'APT::Periodic::AutocleanInterval "7";' >> /etc/apt/apt.conf.d/20auto-
 sudo sed -i "s/Prompt=lts/Prompt=never/" /etc/update-manager/release-upgrades
 sudo sed -i "s/\/\/Unattended-Upgrade::Automatic-Reboot \"false\"/Unattended-Upgrade::Automatic-Reboot \"true\"/" /etc/apt/apt.conf.d/50unattended-upgrades
 sudo /etc/init.d/unattended-upgrades restart
-# Start TeamViewer first time to setup
-sudo teamviewer --daemon start
 clear
 echo "Auto-login enabled"
 echo "TeamViewer, Arandr, Google Chrome, OpenSSH and VLC installation complete"
@@ -223,6 +221,11 @@ Section "Device"
     Option      "DRI" "true"
 EndSection
 X11FIX
+
+# Start TeamViewer first time to setup
+sudo /usr/bin/teamviewer daemon start &> /dev/null
+sudo teamviewer passwd eze_zotac_ss
+/usr/bin/teamviewer &> /dev/null
 
 # Set max_cstate=1 in GRUB
 sudo mv /tmp/20-intel.conf /etc/X11/xorg.conf.d/20-intel.conf
