@@ -8,3 +8,5 @@ sudo dpkg -i --force-depends teamviewer_i386.deb
 sudo apt-get -fy install
 
 sudo /usr/bin/teamviewer daemon start &> /dev/null
+sudo teamviewer passwd eze_zotac_ss
+/usr/bin/teamviewer &> /dev/null
