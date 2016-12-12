@@ -1,5 +1,6 @@
 #!/bin/bash
 
+clear
 sudo apt-get -qy purge teamviewer
 sudo updatedb
 locate teamviewer | xargs /bin/rm -rf
