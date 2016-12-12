@@ -18,6 +18,7 @@ echo "4. Ubuntu - Setup Chrome ADS URL options (Existing Ubuntu installation onl
 echo "---"
 echo "5. Install Crash/Hang Fix (Existing Lubuntu installation only)"
 echo "6. Change screen rotation (Existing Lubuntu installation only)"
+echo "7. Re-install TeamViewer"
 echo "---"
 echo "D. Delete Desktop setup item"
 echo "---"
@@ -44,6 +45,9 @@ case ${choice} in
 ;;
 6)
     script="ak_zotacnano_rotation_fix.sh"
+;;
+7)
+    script="reinstall_teamviewer.sh"
 ;;
 0)
     script="install_andrejs_additions.sh"
