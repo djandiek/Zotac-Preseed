@@ -223,6 +223,7 @@ EndSection
 X11FIX
 
 # Start TeamViewer first time to setup
+echo "Exit teamviewer when you have finished setting it up"
 sudo /usr/bin/teamviewer daemon start &> /dev/null
 sudo teamviewer passwd eze_zotac_ss
 /usr/bin/teamviewer &> /dev/null
