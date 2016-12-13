@@ -233,7 +233,7 @@ X11FIX
 echo "Exit teamviewer when you have finished setting it up"
 sudo /usr/bin/teamviewer daemon start &> /dev/null
 sudo teamviewer passwd eze_zotac_ss
-/usr/bin/teamviewer &> /dev/null
+#/usr/bin/teamviewer &> /dev/null
 
 # Set max_cstate=1 in GRUB
 sudo mv /tmp/20-intel.conf /etc/X11/xorg.conf.d/20-intel.conf

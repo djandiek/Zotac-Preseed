@@ -84,13 +84,13 @@ if [ ${install_teamviewer} = "y" -o ${install_teamviewer} = "Y" ];
         sudo updatedb
         locate teamviewer | xargs /bin/rm -rf
         wget http://175.103.28.7/xkloud/zotac/teamviewer_i386.deb
-        if [ $(echo "${release} > 14.04" | bc) -eq 1 ]
-        then
-            apt install teamviewer_i386.deb
-        else
+        #if [ $(echo "${release} > 14.04" | bc) -eq 1 ]
+        #then
+        #    apt install teamviewer_i386.deb
+        #else
             sudo dpkg -i --force-depends teamviewer_i386.deb
             sudo apt-get -fy install
-        fi;
+        #fi;
         echo "TeamViewer installed"
     else
         read -n 1 -p "Teamviewer is already installed. Do you want to re-install it? [y/n]: " -t 10 tv_reinstall
@@ -100,13 +100,13 @@ if [ ${install_teamviewer} = "y" -o ${install_teamviewer} = "Y" ];
             sudo updatedb
             locate teamviewer | xargs /bin/rm -rf
             wget http://175.103.28.7/xkloud/zotac/teamviewer_i386.deb
-            if [ $(echo "${release} > 14.04" | bc) -eq 1 ]
-            then
-                apt install teamviewer_i386.deb
-            else
+            #if [ $(echo "${release} > 14.04" | bc) -eq 1 ]
+            #then
+            #    apt install teamviewer_i386.deb
+            #else
                 sudo dpkg -i --force-depends teamviewer_i386.deb
                 sudo apt-get -fy install
-            fi;
+            #fi;
             echo "TeamViewer re-installed"
         fi
     fi
