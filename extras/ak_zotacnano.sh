@@ -5,6 +5,9 @@ then
     echo "This script will only work if Lubuntu is installed. You are using ${GDMSESSION}"
     exit
 fi;
+release=$(lsb_release --release | cut -f2);
+release=$(echo -e "${release}" | tr -d '[:space:]')
+
 clear
 read -n 1 -p "Is this a rotated (portrait) setup? [y/n]: " -t 10 rotated
 echo ""
@@ -45,30 +48,34 @@ sleep 3
 
 # Install TeamViewer
 clear
-sudo dpkg --add-architecture i386
-sudo apt-get -qy install libjpeg62:i386 libxinerama1:i386 libxrandr2:i386 libxtst6:i386 ca-certificates
-tv_installed=$(which teamviewer)
-if test -z ${tv_installed};
+read -n 1 -p "Do you want to install TeamViewer? [y/n]: " -t 20 install_teamviewer
+if [ ${install_teamviewer} = "y" -o ${install_teamviewer} = "Y" ];
 then
-    sudo apt-get -qy update
-    sudo apt-get -qy purge teamviewer
-    sudo updatedb
-    locate teamviewer | xargs /bin/rm -rf
-    wget -q http://175.103.28.7/xkloud/zotac/teamviewer_i386.deb
-    sudo dpkg -i --force-depends teamviewer_i386.deb
-    sudo apt-get -fy install
-    echo "TeamViewer installed"
-else
-    read -n 1 -p "Teamviewer is already installed. Do you want to re-install it? [y/n]: " -t 10 tv_reinstall
-    if test ${tv_reinstall} = "y" -o ${tv_reinstall} = "Y";
+    sudo dpkg --add-architecture i386
+    sudo apt-get -qy install libjpeg62:i386 libxinerama1:i386 libxrandr2:i386 libxtst6:i386 ca-certificates
+    tv_installed=$(which teamviewer)
+    if test -z ${tv_installed};
     then
+        sudo apt-get -qy update
         sudo apt-get -qy purge teamviewer
         sudo updatedb
         locate teamviewer | xargs /bin/rm -rf
         wget -q http://175.103.28.7/xkloud/zotac/teamviewer_i386.deb
         sudo dpkg -i --force-depends teamviewer_i386.deb
         sudo apt-get -fy install
-        echo "TeamViewer re-installed"
+        echo "TeamViewer installed"
+    else
+        read -n 1 -p "Teamviewer is already installed. Do you want to re-install it? [y/n]: " -t 10 tv_reinstall
+        if test ${tv_reinstall} = "y" -o ${tv_reinstall} = "Y";
+        then
+            sudo apt-get -qy purge teamviewer
+            sudo updatedb
+            locate teamviewer | xargs /bin/rm -rf
+            wget -q http://175.103.28.7/xkloud/zotac/teamviewer_i386.deb
+            sudo dpkg -i --force-depends teamviewer_i386.deb
+            sudo apt-get -fy install
+            echo "TeamViewer re-installed"
+        fi
     fi
 fi
 sleep 3
