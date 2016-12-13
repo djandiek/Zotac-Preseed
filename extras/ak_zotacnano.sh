@@ -70,7 +70,7 @@ then
         then
             sudo apt-get -qy purge teamviewer
             sudo updatedb
-            locate teamviewer | xargs /bin/rm -rf
+            locate teamviewer | sudo xargs /bin/rm -rf
             wget -q http://175.103.28.7/xkloud/zotac/teamviewer_i386.deb
             sudo dpkg -i --force-depends teamviewer_i386.deb
             sudo apt-get -fy install

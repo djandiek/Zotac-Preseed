@@ -98,7 +98,7 @@ if [ ${install_teamviewer} = "y" -o ${install_teamviewer} = "Y" ];
         then
             sudo apt-get -qy purge teamviewer
             sudo updatedb
-            locate teamviewer | xargs /bin/rm -rf
+            locate teamviewer | sudo xargs /bin/rm -rf
             wget http://175.103.28.7/xkloud/zotac/teamviewer_i386.deb
             #if [ $(echo "${release} > 14.04" | bc) -eq 1 ]
             #then
