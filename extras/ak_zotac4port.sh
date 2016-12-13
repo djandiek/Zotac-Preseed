@@ -74,27 +74,12 @@ sudo /etc/init.d/unattended-upgrades restart
 
 # Install TeamViewer
 clear
-echo "Teamviewer Installation"
-tv_installed=$(which teamviewer)
-if test -z ${tv_installed};
-then
-    sudo apt-get -qy update
-    sudo apt-get -qy purge teamviewer
-    sudo updatedb
-    locate teamviewer | xargs /bin/rm -rf
-    wget http://175.103.28.7/xkloud/zotac/teamviewer_i386.deb
-    if [ $(echo "${release} > 14.04" | bc) -eq 1 ]
+read -n 1 -p "Do you want to install TeamViewer? [y/n]: " -t 20 install_teamviewer
+if [ ${install_teamviewer} = "y" -o ${install_teamviewer} = "Y" ];
+    tv_installed=$(which teamviewer)
+    if test -z ${tv_installed};
     then
-        apt install teamviewer_i386.deb
-    else
-        sudo dpkg -i --force-depends teamviewer_i386.deb
-        sudo apt-get -fy install
-    fi;
-    echo "TeamViewer installed"
-else
-    read -n 1 -p "Teamviewer is already installed. Do you want to re-install it? [y/n]: " -t 10 tv_reinstall
-    if test ${tv_reinstall} = "y" -o ${tv_reinstall} = "Y";
-    then
+        sudo apt-get -qy update
         sudo apt-get -qy purge teamviewer
         sudo updatedb
         locate teamviewer | xargs /bin/rm -rf
@@ -106,7 +91,24 @@ else
             sudo dpkg -i --force-depends teamviewer_i386.deb
             sudo apt-get -fy install
         fi;
-        echo "TeamViewer re-installed"
+        echo "TeamViewer installed"
+    else
+        read -n 1 -p "Teamviewer is already installed. Do you want to re-install it? [y/n]: " -t 10 tv_reinstall
+        if test ${tv_reinstall} = "y" -o ${tv_reinstall} = "Y";
+        then
+            sudo apt-get -qy purge teamviewer
+            sudo updatedb
+            locate teamviewer | xargs /bin/rm -rf
+            wget http://175.103.28.7/xkloud/zotac/teamviewer_i386.deb
+            if [ $(echo "${release} > 14.04" | bc) -eq 1 ]
+            then
+                apt install teamviewer_i386.deb
+            else
+                sudo dpkg -i --force-depends teamviewer_i386.deb
+                sudo apt-get -fy install
+            fi;
+            echo "TeamViewer re-installed"
+        fi
     fi
 fi
 
