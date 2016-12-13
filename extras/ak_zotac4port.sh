@@ -6,6 +6,9 @@ then
     exit
 fi;
 
+release=$(lsb_release --release | cut -f2);
+release=$(echo -e "${release}" | tr -d '[:space:]')
+
 clear
 echo "This script does the final setup of the Zotac ADS."
 echo ""
@@ -80,8 +83,13 @@ then
     sudo updatedb
     locate teamviewer | xargs /bin/rm -rf
     wget http://175.103.28.7/xkloud/zotac/teamviewer_i386.deb
-    sudo dpkg -i --force-depends teamviewer_i386.deb
-    sudo apt-get -fy install
+    if [ $(echo "${release} > 14.04" | bc) -eq 1 ]
+    then
+        apt install teamviewer_i386.deb
+    else
+        sudo dpkg -i --force-depends teamviewer_i386.deb
+        sudo apt-get -fy install
+    fi;
     echo "TeamViewer installed"
 else
     read -n 1 -p "Teamviewer is already installed. Do you want to re-install it? [y/n]: " -t 10 tv_reinstall
@@ -91,8 +99,13 @@ else
         sudo updatedb
         locate teamviewer | xargs /bin/rm -rf
         wget http://175.103.28.7/xkloud/zotac/teamviewer_i386.deb
-        sudo dpkg -i --force-depends teamviewer_i386.deb
-        sudo apt-get -fy install
+        if [ $(echo "${release} > 14.04" | bc) -eq 1 ]
+        then
+            apt install teamviewer_i386.deb
+        else
+            sudo dpkg -i --force-depends teamviewer_i386.deb
+            sudo apt-get -fy install
+        fi;
         echo "TeamViewer re-installed"
     fi
 fi
