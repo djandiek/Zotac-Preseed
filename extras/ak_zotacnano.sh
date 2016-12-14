@@ -192,15 +192,19 @@ echo "A reboot is required. Once rebooted, test the system to ensure everything 
 read -p "Press any key to continue..." -n 1 -t 10
 
 # Forcing resolution to 1280x720
-hdmi_port=$(xrandr -q | grep HDMI | grep normal | cut -d' ' -f1);
+hdmi_port=$(xrandr -q | grep HDMI | grep " connected" | cut -d' ' -f1);
+if test -z ${hdmi_port};
+then
+    hdmi_port="HDMI1"
+fi
 echo '#!/bin/sh' > ~/resolution_fix
 echo 'xrandr --newmode "1280x720_60.00"   74.50  1280 1344 1472 1664  720 723 728 748 -hsync +vsync' >> ~/resolution_fix
-echo "xrandr --addmode ${hdmi_port} \"1280x720_60.00\"" >> ~/resolution_fix
+echo "xrandr --addmode ${hdmi_port[0]} \"1280x720_60.00\"" >> ~/resolution_fix
 if test ${rotated} = "y" -o ${rotated} = "Y";
 then
-    echo "xrandr --output ${hdmi_port} --primary --mode \"1280x720_60.00\" --rotate left" >> ~/resolution_fix
+    echo "xrandr --output ${hdmi_port[0]} --primary --mode \"1280x720_60.00\" --rotate left" >> ~/resolution_fix
 else
-    echo "xrandr --output ${hdmi_port} --primary --mode \"1280x720_60.00\"" >> ~/resolution_fix
+    echo "xrandr --output ${hdmi_port[0]} --primary --mode \"1280x720_60.00\"" >> ~/resolution_fix
 fi
 chmod +x ~/resolution_fix
 sudo mv ~/resolution_fix /opt/resolution_fix.sh
