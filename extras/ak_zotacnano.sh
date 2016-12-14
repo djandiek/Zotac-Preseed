@@ -83,9 +83,13 @@ sleep 3
 clear
 echo "Installing extra software (Google Chrome etc)"
 sleep 3
-rm -f linux_signing_key.pub
-wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google.list'
+check_sources=$(locate google*.list);
+if test -z check_sources;
+then
+    rm -f linux_signing_key.pub
+    wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+    sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google.list'
+fi
 sudo apt-get update
 sudo apt-get -qy install arandr google-chrome-stable build-essential ca-certificates curl python dconf-tools mesa-utils openssh-server openssl vlc browser-plugin-vlc update-notifier-common gedit mc unclutter
 

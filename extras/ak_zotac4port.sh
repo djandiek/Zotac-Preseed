@@ -46,9 +46,13 @@ sudo apt-get -qyf install software-properties-common
 sudo add-apt-repository -y ppa:mc3man/trusty-media
 sudo add-apt-repository -y ppa:graphics-drivers/ppa
 
-rm -f linux_signing_key.pub
-wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google.list'
+check_sources=$(locate google*.list);
+if test -z check_sources;
+then
+    rm -f linux_signing_key.pub
+    wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+    sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google.list'
+fi
 
 sudo apt-get update
 sudo apt-get -qy dist-upgrade
