@@ -75,7 +75,9 @@ sudo /etc/init.d/unattended-upgrades restart
 # Install TeamViewer
 clear
 read -n 1 -p "Do you want to install TeamViewer? [y/n]: " -t 20 install_teamviewer
+
 if [ ${install_teamviewer} = "y" -o ${install_teamviewer} = "Y" ];
+then
     tv_installed=$(which teamviewer)
     if test -z ${tv_installed};
     then
