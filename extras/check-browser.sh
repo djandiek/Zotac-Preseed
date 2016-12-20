@@ -1,16 +1,8 @@
 #!/bin/bash
 
-failed=0
-
 test_browser=$(pgrep -afl kiosk)
 
 if [[ ! ${test_browser} =~ "http" ]];
-then
-    failed=1
-    logger "Browser FAILED... Restarting"
-fi;
-
-if [[ failed == 1 ]];
 then
     if [[ ${GDMSESSION} =~ "Lubuntu" ]];
     then
