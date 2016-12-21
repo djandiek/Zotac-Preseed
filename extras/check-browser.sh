@@ -4,7 +4,7 @@ test_browser=$(pgrep -afl kiosk)
 
 if [[ ! ${test_browser} =~ "kiosk" ]];
 then
-    if [[ -e /home/eze_zbox/.config/lxsession/Lubuntu/autostart ]];
+    if [[ -e ~/.config/lxsession/Lubuntu/autostart ]];
     then
         cmd=$(grep kiosk ~/.config/lxsession/Lubuntu/autostart);
     fi;
