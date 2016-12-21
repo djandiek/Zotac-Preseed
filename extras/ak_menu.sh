@@ -19,7 +19,7 @@ echo "---"
 echo "5. Install Crash/Hang Fix (Existing Lubuntu installation only)"
 echo "6. Change screen rotation (Existing Lubuntu installation only)"
 echo "7. Re-install TeamViewer"
-echo "8. Install Browser Check Patch
+echo "8. Install Browser Check Patch"
 echo "---"
 echo "D. Delete Desktop setup item"
 echo "---"
