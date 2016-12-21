@@ -15,6 +15,7 @@ then
     fi;
     if [[ -n ${cmd}  ]];
     then
+        pkill -f chrome
         `${cmd}` &
     fi;
 fi;
