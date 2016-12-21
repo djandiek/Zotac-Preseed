@@ -168,21 +168,28 @@ echo "/usr/bin/google-chrome-stable --kiosk --incognito ${ads_url}" >> ~/.config
 #echo "/opt/browser-loop.sh &" >> ~/.config/lxsession/Lubuntu/autostart
 
 # Restart TeamViewer 2 minutes after boot. TeamViewer gets stuffed up when XRandR is used
-sudo crontab -l > /tmp/bootup
-sed -i "/teamviewer/d" /tmp/bootup
-echo "@reboot (sleep 120; teamviewer daemon restart) > /dev/null 2>&1 & # Restart teamviewer after 2 minutes" >> /tmp/bootup
-sudo crontab /tmp/bootup
+cronfile='/etc/cron.d/restart-teamviewer'
+sudo echo "SHELL=/bin/bash" > ${cronfile}
+sudo echo "PATH=${PATH}" >> ${cronfile}
+sudo echo "# Restart teamviewer 2 minutes after boot" >> cronfile
+sudo echo "@reboot root (sleep 120; teamviewer daemon restart) > /dev/null 2>&1 &" >> cronfile
+sudo chmod u=rw,g=r,o=r ${cronfile}
+sudo chown root:root ${cronfile}
 
 # Add browser check to cron
-wget -q -O ~/check-browser.sh http://175.103.28.7/xkloud/zotac/check-browser.sh
-sudo mv ~/check-browser.sh /opt/check-browser.sh
+wget -q -O ${HOME}/check-browser.sh http://175.103.28.7/xkloud/zotac/check-browser.sh
+sudo mv ${HOME}/check-browser.sh /opt/check-browser.sh
 chmod +x /opt/check-browser.sh
 
-crontab -l > /tmp/bootup
-sed -i "/check-browser/d" /tmp/bootup
-echo "*/10 * * * * /opt/check-browser.sh > /dev/null 2>&1 &" >> /tmp/bootup
-crontab /tmp/bootup
-rm -f /tmp/bootup
+cronfile='/etc/cron.d/check-browser'
+sudo echo "SHELL=/bin/bash" > ${cronfile}
+sudo echo "PATH=${PATH}" >> ${cronfile}
+sudo echo "# Check browser is running every 10 minutes" >> ${cronfile}
+sudo echo "*/10 * * * * ${USER} /opt/check-browser.sh > /dev/null 2>&1 &" >> ${cronfile}
+
+ugroup=$(id -gn ${USER});
+sudo chmod u=rw,g=r,o=r ${cronfile}
+sudo chown ${USER}:${ugroup} ${cronfile}
 
 clear
 echo "Setup auto-updates for security patches etc"

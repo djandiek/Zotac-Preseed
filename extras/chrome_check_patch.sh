@@ -1,17 +1,19 @@
 #!/bin/bash
 
 # Add browser check to cron
-wget -q -O ~/check-browser.sh http://175.103.28.7/xkloud/zotac/check-browser.sh
-sudo mv ~/check-browser.sh /opt/check-browser.sh
+wget -q -O ${HOME}/check-browser.sh http://175.103.28.7/xkloud/zotac/check-browser.sh
+sudo mv ${HOME}/check-browser.sh /opt/check-browser.sh
 chmod +x /opt/check-browser.sh
 
-crontab -l > /tmp/bootup
-sed -i "/check-browser/d" /tmp/bootup
-echo "*/10 * * * * /opt/check-browser.sh > /dev/null 2>&1 &" >> /tmp/bootup
-crontab /tmp/bootup
-rm -f /tmp/bootup
+cronfile='/etc/cron.d/check-browser'
+sudo echo "SHELL=/bin/bash" > ${cronfile}
+sudo echo "PATH=${PATH}" >> ${cronfile}
+sudo echo "# Check browser is running every 10 minutes" >> ${cronfile}
+sudo echo "*/10 * * * * ${USER} /opt/check-browser.sh > /dev/null 2>&1 &" >> ${cronfile}
 
-echo "New CRON:"
-crontab -l
+ugroup=$(id -gn ${USER});
+sudo chmod u=rw,g=r,o=r ${cronfile}
+sudo chown ${USER}:${ugroup} ${cronfile}
+
 echo ""
-echo "Browser check script installed and CRON updated"
+echo "Browser check script installed to ${cronfile}"
