@@ -10,3 +10,5 @@ sed -i "/check-browser/d" /tmp/bootup
 echo "*/10 * * * * /opt/check-browser.sh > /dev/null 2>&1 &" >> /tmp/bootup
 crontab /tmp/bootup
 rm -f /tmp/bootup
+
+echo "Browser check script installed and CRON updated"
