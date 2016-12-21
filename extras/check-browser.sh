@@ -16,6 +16,7 @@ then
     if [[ -n ${cmd}  ]];
     then
         pkill -f chrome
+        logger "Browser FAILED. Restarting..."
         `${cmd}` &
     fi;
 fi;
