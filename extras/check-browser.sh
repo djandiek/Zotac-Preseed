@@ -2,7 +2,7 @@
 
 test_browser=$(pgrep -afl kiosk)
 
-if [[ ! ${test_browser} =~ "http" ]];
+if [[ ! ${test_browser} =~ "kiosk" ]];
 then
     if [[ -e /home/eze_zbox/.config/lxsession/Lubuntu/autostart ]];
     then
