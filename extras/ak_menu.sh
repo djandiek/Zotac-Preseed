@@ -19,6 +19,7 @@ echo "---"
 echo "5. Install Crash/Hang Fix (Existing Lubuntu installation only)"
 echo "6. Change screen rotation (Existing Lubuntu installation only)"
 echo "7. Re-install TeamViewer"
+echo "8. Install Browser Check Patch
 echo "---"
 echo "D. Delete Desktop setup item"
 echo "---"
@@ -48,6 +49,9 @@ case ${choice} in
 ;;
 7)
     script="reinstall_teamviewer.sh"
+;;
+8)
+    script="chrome_check_patch.sh"
 ;;
 0)
     script="install_andrejs_additions.sh"

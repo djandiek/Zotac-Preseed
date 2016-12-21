@@ -4,12 +4,17 @@ test_browser=$(pgrep -afl kiosk)
 
 if [[ ! ${test_browser} =~ "http" ]];
 then
-    if [[ ${GDMSESSION} =~ "Lubuntu" ]];
+    if [[ -e /home/eze_zbox/.config/lxsession/Lubuntu/autostart ]];
     then
         cmd=$(grep kiosk /home/eze_zbox/.config/lxsession/Lubuntu/autostart);
-    else
+    fi;
+    if [[ -e /home/eze_zbox/.config/autostart/00-ads-browser.desktop ]];
+    then
         cmd=$(grep kiosk /home/eze_zbox/.config/autostart/00-ads-browser.desktop)
         cmd=$(echo ${cmd} | grep -oP '(?<=Exec=).+')
     fi;
-    `${cmd}` &
+    if [[ -n ${cmd}  ]];
+    then
+        `${cmd}` &
+    fi;
 fi;
