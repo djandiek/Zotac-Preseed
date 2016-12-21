@@ -6,11 +6,11 @@ if [[ ! ${test_browser} =~ "kiosk" ]];
 then
     if [[ -e /home/eze_zbox/.config/lxsession/Lubuntu/autostart ]];
     then
-        cmd=$(grep kiosk /home/eze_zbox/.config/lxsession/Lubuntu/autostart);
+        cmd=$(grep kiosk ~/.config/lxsession/Lubuntu/autostart);
     fi;
     if [[ -e /home/eze_zbox/.config/autostart/00-ads-browser.desktop ]];
     then
-        cmd=$(grep kiosk /home/eze_zbox/.config/autostart/00-ads-browser.desktop)
+        cmd=$(grep kiosk ~/.config/autostart/00-ads-browser.desktop)
         cmd=$(echo ${cmd} | grep -oP '(?<=Exec=).+')
     fi;
     if [[ -n ${cmd}  ]];
