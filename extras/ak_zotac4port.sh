@@ -150,7 +150,7 @@ sudo mv ~/check-browser.sh /opt/check-browser.sh
 chmod +x /opt/check-browser.sh
 
 crontab -l > /tmp/bootup
-sed -i "/kiosk/d" /tmp/bootup
+sed -i "/check-browser/d" /tmp/bootup
 echo "*/10 * * * * /opt/check-browser.sh > /dev/null 2>&1 &" >> /tmp/bootup
 crontab /tmp/bootup
 rm -f /tmp/bootup
