@@ -1,13 +1,19 @@
 #!/bin/bash
 
-if test ${GDMSESSION} != "ubuntu";
+os=$(ls /usr/bin/*session)
+if [[ "${os}" =~ "lxsession" ]];
 then
-    echo "This setup script will only work if Ubuntu is installed. You are using ${GDMSESSION}"
+    os="lubuntu"
+else
+    os="ubuntu"
+fi;
+if test ${os} != "ubuntu";
+then
+    echo "This setup script will only work if Ubuntu is installed. You are using ${os}"
     exit
 fi;
 
-release=$(lsb_release --release | cut -f2);
-release=$(echo -e "${release}" | tr -d '[:space:]')
+release=$(lsb_release -sr);
 
 clear
 echo "This script does the final setup of the Zotac ADS."

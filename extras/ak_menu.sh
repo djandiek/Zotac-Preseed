@@ -3,25 +3,45 @@
 script=""
 machine=$(sudo dmidecode -t1 | grep 'Product Name');
 
+os=$(ls /usr/bin/*session)
+if [[ "${os}" =~ "lxsession" ]];
+then
+    os="lubuntu"
+else
+    os="ubuntu"
+fi;
+
 clear
 echo "Current machine details: ${machine}"
 echo
 
 echo "Please select an option from the menu:"
 echo "--------------------------------------"
-echo "0. Install Andrej's Additions (Run first usually)"
-echo "1. Setup Zotac 4 Port (Ubuntu installation only)"
-echo "2. Setup Zotac Nano (Lubuntu installation only)"
+echo ""
+echo -e "\e[1mF. Full Setup (Andrej's stuff first, then Andrew's. No need for 0, 1 or 2 when this option is selected)\e[0m\n"
 echo "---"
-echo "3. Lubuntu - Setup Chrome ADS URL options (Existing Lubuntu installation only)"
-echo "4. Ubuntu - Setup Chrome ADS URL options (Existing Ubuntu installation only)"
-echo "---"
-echo "5. Install Crash/Hang Fix (Existing Lubuntu installation only)"
-echo "6. Change screen rotation (Existing Lubuntu installation only)"
-echo "7. Re-install TeamViewer"
-echo "8. Install Browser Check Patch"
-echo "---"
-echo "D. Delete Desktop setup item"
+echo "0. Install Andrej's Additions (Run before option 1 or 2)"
+if [[ "${os}" =~ "lubuntu" ]];
+then
+    echo -e "\e[2m1. Setup Zotac 4 Port (Ubuntu installation only)\e[0m"
+    echo "2. Setup Zotac Nano (Lubuntu installation only)"
+    echo "---"
+    echo "3. Install Crash/Hang Fix (Existing Lubuntu installation only)"
+    echo "4. Change screen rotation (Existing Lubuntu installation only)"
+else
+    echo "1. Setup Zotac 4 Port (Ubuntu installation only)"
+    echo -e "\e[2m2. Setup Zotac Nano (Lubuntu installation only)\e[0m\n"
+    echo "---"
+    echo -e "\e[2m3. Install Crash/Hang Fix (Existing Lubuntu installation only)\e[0m"
+    echo -e "\e[2m4. Change screen rotation (Existing Lubuntu installation only)\e[0m"
+fi;
+echo "5. Re-install TeamViewer"
+echo "6. Install Browser Check Patch"
+if [[ ! "${os}" =~ "lubuntu" ]];
+then
+    echo "---"
+    echo "D. Delete Desktop setup item"
+fi;
 echo "---"
 echo "Q. Quit"
 echo
@@ -29,6 +49,9 @@ echo
 read -n 1 -p "Choice?: " choice
 echo
 case ${choice} in
+f|F)
+    script="ak_full_install.sh"
+;;
 1)
     script="ak_zotac4port.sh"
 ;;
@@ -36,21 +59,15 @@ case ${choice} in
     script="ak_zotacnano.sh"
 ;;
 3)
-    script="ak_chrome_patch_lubuntu.sh"
-;;
-4)
-    script="ak_chrome_patch_ubuntu.sh"
-;;
-5)
     script="ak_crash_patch.sh"
 ;;
-6)
+4)
     script="ak_zotacnano_rotation_fix.sh"
 ;;
-7)
+5)
     script="reinstall_teamviewer.sh"
 ;;
-8)
+6)
     script="chrome_check_patch.sh"
 ;;
 0)

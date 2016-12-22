@@ -1,12 +1,19 @@
 #!/bin/bash
 
-if test ${GDMSESSION} != "Lubuntu";
+os=$(ls /usr/bin/*session)
+if [[ "${os}" =~ "lxsession" ]];
 then
-    echo "This script will only work if Lubuntu is installed. You are using ${GDMSESSION}"
+    os="lubuntu"
+else
+    os="ubuntu"
+fi;
+if test ${os} != "lubuntu";
+then
+    echo "This script will only work if Lubuntu is installed. You are using ${os}"
     exit
 fi;
-release=$(lsb_release --release | cut -f2);
-release=$(echo -e "${release}" | tr -d '[:space:]')
+
+release=$(lsb_release -sr);
 
 clear
 read -n 1 -p "Is this a rotated (portrait) setup? [y/n]: " -t 10 rotated

@@ -1,8 +1,15 @@
 #!/bin/bash
 
-if test ${GDMSESSION} != "Lubuntu";
+os=$(ls /usr/bin/*session)
+if [[ "${os}" =~ "lxsession" ]];
 then
-    echo "This script will only work if Lubuntu is installed. You are using ${GDMSESSION}"
+    os="lubuntu"
+else
+    os="ubuntu"
+fi;
+if test ${os} != "lubuntu";
+then
+    echo "This script will only work if Lubuntu is installed. You are using ${os}"
     exit
 fi;
 
