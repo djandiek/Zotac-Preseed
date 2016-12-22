@@ -8,11 +8,10 @@ then
     then
         cmd=$(grep kiosk ${HOME}/.config/lxsession/Lubuntu/autostart);
     fi;
-    autostart_file=$(ls -1 ${HOME}/.config/autostart/ads_* 2>/dev/null);
-    if [[ -e ${autostart_file[0]} ]];
+    autostart_data=$(grep -r --include=\*.desktop "${HOME}/.config/autostart" -e "kiosk" | cut -d: -f2-);
+    if [[ -n ${autostart_data} ]];
     then
-        cmd=$(grep kiosk ${autostart_file[0]})
-        cmd=$(echo ${cmd} | grep -oP '(?<=Exec=).+')
+        cmd=$(echo ${autostart_data[0]} | grep -oP '(?<=Exec=).+')
     fi;
     if [[ -n ${cmd}  ]];
     then
