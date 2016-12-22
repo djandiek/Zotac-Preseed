@@ -13,13 +13,13 @@ then
 
     if [[ -n ${autostart_data} ]];
     then
-        cmd=$(echo ${autostart_data[0]} | grep -oP '(?<=Exec=).+')
+        cmd=$(echo ${autostart_data[0]} | grep -oP '(?<=Exec=).+' | sed -e "s/\"//g")
     fi;
     if [[ -n ${cmd}  ]];
     then
         pkill -f chrome
         sleep 3
         logger "Browser FAILED. Restarting... using ${cmd}"
-        `DISPLAY=:0 ${cmd}` &
+        $(DISPLAY=:0 ${cmd} &)
     fi;
 fi;
