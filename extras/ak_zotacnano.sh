@@ -174,10 +174,10 @@ sudo echo "SHELL=/bin/bash" > ${tmpfile}
 sudo echo "PATH=${PATH}" >> ${tmpfile}
 sudo echo "# Restart teamviewer 2 minutes after boot" >> ${tmpfile}
 sudo echo "@reboot root (sleep 120; teamviewer daemon restart) > /dev/null 2>&1 &" >> ${tmpfile}
+
 sudo mv ${tmpfile} ${cronfile}
-ugroup=$(id -gn ${USER});
 sudo chmod u=rw,g=r,o=r ${cronfile}
-sudo chown ${USER}:${ugroup} ${cronfile}
+sudo chown root:root ${cronfile}
 
 # Add browser check to cron
 wget -q -O ${HOME}/check-browser.sh http://175.103.28.7/xkloud/zotac/check-browser.sh
@@ -190,10 +190,10 @@ echo "SHELL=/bin/bash" > ${tmpfile}
 echo "PATH=${PATH}" >> ${tmpfile}
 echo "# Check browser is running every 10 minutes" >> ${tmpfile}
 echo "*/10 * * * * ${USER} /opt/check-browser.sh > /dev/null 2>&1 &" >> ${tmpfile}
+
 sudo mv ${tmpfile} ${cronfile}
-ugroup=$(id -gn ${USER});
 sudo chmod u=rw,g=r,o=r ${cronfile}
-sudo chown ${USER}:${ugroup} ${cronfile}
+sudo chown root:root ${cronfile}
 
 clear
 echo "Setup auto-updates for security patches etc"

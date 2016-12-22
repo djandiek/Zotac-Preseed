@@ -11,10 +11,10 @@ echo "SHELL=/bin/bash" > ${tmpfile}
 echo "PATH=${PATH}" >> ${tmpfile}
 echo "# Check browser is running every 10 minutes" >> ${tmpfile}
 echo "*/10 * * * * ${USER} /opt/check-browser.sh > /dev/null 2>&1 &" >> ${tmpfile}
+
 sudo mv ${tmpfile} ${cronfile}
-ugroup=$(id -gn ${USER});
 sudo chmod u=rw,g=r,o=r ${cronfile}
-sudo chown ${USER}:${ugroup} ${cronfile}
+sudo chown root:root ${cronfile}
 
 echo ""
 echo "Browser check script installed to ${cronfile}"
