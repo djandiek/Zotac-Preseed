@@ -169,12 +169,15 @@ echo "/usr/bin/google-chrome-stable --kiosk --incognito ${ads_url}" >> ~/.config
 
 # Restart TeamViewer 2 minutes after boot. TeamViewer gets stuffed up when XRandR is used
 cronfile='/etc/cron.d/restart-teamviewer'
-sudo echo "SHELL=/bin/bash" > ${cronfile}
-sudo echo "PATH=${PATH}" >> ${cronfile}
-sudo echo "# Restart teamviewer 2 minutes after boot" >> cronfile
-sudo echo "@reboot root (sleep 120; teamviewer daemon restart) > /dev/null 2>&1 &" >> cronfile
+tmpfile="${HOME}/restart-teamviewer"
+sudo echo "SHELL=/bin/bash" > ${tmpfile}
+sudo echo "PATH=${PATH}" >> ${tmpfile}
+sudo echo "# Restart teamviewer 2 minutes after boot" >> ${tmpfile}
+sudo echo "@reboot root (sleep 120; teamviewer daemon restart) > /dev/null 2>&1 &" >> ${tmpfile}
+sudo mv ${tmpfile} ${cronfile}
+ugroup=$(id -gn ${USER});
 sudo chmod u=rw,g=r,o=r ${cronfile}
-sudo chown root:root ${cronfile}
+sudo chown ${USER}:${ugroup} ${cronfile}
 
 # Add browser check to cron
 wget -q -O ${HOME}/check-browser.sh http://175.103.28.7/xkloud/zotac/check-browser.sh
@@ -182,11 +185,12 @@ sudo mv ${HOME}/check-browser.sh /opt/check-browser.sh
 chmod +x /opt/check-browser.sh
 
 cronfile='/etc/cron.d/check-browser'
-sudo echo "SHELL=/bin/bash" > ${cronfile}
-sudo echo "PATH=${PATH}" >> ${cronfile}
-sudo echo "# Check browser is running every 10 minutes" >> ${cronfile}
-sudo echo "*/10 * * * * ${USER} /opt/check-browser.sh > /dev/null 2>&1 &" >> ${cronfile}
-
+tmpfile="${HOME}/check-browser"
+echo "SHELL=/bin/bash" > ${tmpfile}
+echo "PATH=${PATH}" >> ${tmpfile}
+echo "# Check browser is running every 10 minutes" >> ${tmpfile}
+echo "*/10 * * * * ${USER} /opt/check-browser.sh > /dev/null 2>&1 &" >> ${tmpfile}
+sudo mv ${tmpfile} ${cronfile}
 ugroup=$(id -gn ${USER});
 sudo chmod u=rw,g=r,o=r ${cronfile}
 sudo chown ${USER}:${ugroup} ${cronfile}
