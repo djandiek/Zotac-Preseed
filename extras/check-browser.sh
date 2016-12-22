@@ -13,6 +13,7 @@ then
 
     if [[ -n ${autostart_data} ]];
     then
+        # Get command to relaunch chrome making sure to remove any " as it breaks the call
         cmd=$(echo ${autostart_data[0]} | grep -oP '(?<=Exec=).+' | sed -e "s/\"//g")
     fi;
     if [[ -n ${cmd}  ]];
