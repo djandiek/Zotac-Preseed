@@ -20,6 +20,6 @@ then
         pkill -f chrome
         sleep 3
         logger "Browser FAILED. Restarting... using ${cmd}"
-        `${cmd}` &
+        `DISPLAY=:0 ${cmd}` &
     fi;
 fi;
