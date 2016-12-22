@@ -4,13 +4,13 @@ test_browser=$(pgrep -afl kiosk)
 
 if [[ ! ${test_browser} =~ "kiosk" ]];
 then
-    if [[ -e ~/.config/lxsession/Lubuntu/autostart ]];
+    if [[ -e ${HOME}/.config/lxsession/Lubuntu/autostart ]];
     then
-        cmd=$(grep kiosk ~/.config/lxsession/Lubuntu/autostart);
+        cmd=$(grep kiosk ${HOME}/.config/lxsession/Lubuntu/autostart);
     fi;
-    if [[ -e /home/eze_zbox/.config/autostart/00-ads-browser.desktop ]];
+    if [[ -e ${HOME}/.config/autostart/00-ads-browser.desktop ]];
     then
-        cmd=$(grep kiosk ~/.config/autostart/00-ads-browser.desktop)
+        cmd=$(grep kiosk ${HOME}/.config/autostart/00-ads-browser.desktop)
         cmd=$(echo ${cmd} | grep -oP '(?<=Exec=).+')
     fi;
     if [[ -n ${cmd}  ]];
