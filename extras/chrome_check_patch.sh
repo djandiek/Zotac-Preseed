@@ -9,8 +9,8 @@ cronfile='/etc/cron.d/check-browser'
 tmpfile="${HOME}/check-browser"
 echo "SHELL=/bin/bash" > ${tmpfile}
 echo "PATH=${PATH}" >> ${tmpfile}
-echo "# Check browser is running every 10 minutes" >> ${tmpfile}
-echo "*/10 * * * * ${USER} /opt/check-browser.sh > /dev/null 2>&1 &" >> ${tmpfile}
+echo "# Check browser is running every 2 minutes" >> ${tmpfile}
+echo "*/2 * * * * ${USER} /opt/check-browser.sh > /dev/null 2>&1 &" >> ${tmpfile}
 
 sudo mv ${tmpfile} ${cronfile}
 sudo chmod u=rw,g=r,o=r ${cronfile}
