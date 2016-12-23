@@ -1,7 +1,7 @@
 #!/bin/bash
 
 script=""
-machine=$(sudo dmidecode -t1 | grep 'Product Name');
+machine=$(sudo dmidecode -t1 | grep 'Product Name' | cut -d: -f2-);
 
 os=$(ls /usr/bin/*session)
 if [[ "${os}" =~ "lxsession" ]];
@@ -12,7 +12,7 @@ else
 fi;
 
 clear
-echo "Current machine details: ${machine}"
+echo "Current machine details:${machine}"
 echo
 
 echo "Please select an option from the menu:"
