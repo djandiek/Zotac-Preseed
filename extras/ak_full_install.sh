@@ -53,6 +53,12 @@ sudo ./001.install.ads_additions.sh
 
 clear
 os=$(ls /usr/bin/*session)
+if [[ "${os}" =~ "lxsession" ]];
+then
+    os="lubuntu"
+else
+    os="ubuntu"
+fi;
 script=""
 case ${os} in
 ubuntu)
