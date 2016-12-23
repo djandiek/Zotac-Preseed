@@ -52,7 +52,7 @@ chmod +x /${dir}/001.install.ads_additions.sh
 sudo ./001.install.ads_additions.sh
 
 clear
-
+os=$(ls /usr/bin/*session)
 script=""
 case ${os} in
 ubuntu)
