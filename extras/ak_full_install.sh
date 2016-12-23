@@ -80,3 +80,4 @@ fi;
 chmod +x ak_patch.sh
 ./ak_patch.sh
 rm ak_patch.sh
+pause
