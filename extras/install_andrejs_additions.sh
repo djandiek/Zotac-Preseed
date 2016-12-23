@@ -24,12 +24,19 @@ echo "Extraction complete"
 sleep 3
 
 clear
-case ${GDMSESSION} in
+os=$(ls /usr/bin/*session)
+if [[ "${os}" =~ "lxsession" ]];
+then
+    os="lubuntu"
+else
+    os="ubuntu"
+fi;
+case ${os} in
 ubuntu)
     label="Ubuntu"
     dir="install_list.trusty-ubuntu.14-04"
 ;;
-Lubuntu)
+lubuntu)
     label="Lubuntu"
     dir="install_list.xenial-lubuntu.16-04"
 ;;
