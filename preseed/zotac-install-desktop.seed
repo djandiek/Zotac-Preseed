@@ -22,7 +22,7 @@ unattended-upgrades unattended-upgrades/enable_auto_updates boolean true
 
 # Configure the sources.list
 d-i mirror/country string manual
-d-i mirror/http/hostname string au.archive.ubuntu.com
+d-i mirror/http/hostname string mirror.aarnet.edu.au
 d-i mirror/http/directory string /ubuntu/
 d-i apt-setup/use_mirror boolean true
 d-i apt-setup/mirror/error select Change mirror
