@@ -13,18 +13,35 @@ then
     exit
 fi;
 clear
-read -n 1 -p "Is this a rotated (portrait) setup? [y/n]: " -t 10 rotated
+read -n 1 -p "What is the resolution width? [1280]: " x_res
 echo ""
+read -n 1 -p "What is the resolution height? [720]: " y_res
+echo ""
+read -n 1 -p "Is this a rotated (portrait) setup? [y/n]: " -t 10 rotated
 
-# Forcing resolution to 1280x720
-echo "#!/bin/sh" > ~/resolution_fix
-echo 'xrandr --newmode "1280x720_60.00"   74.50  1280 1344 1472 1664  720 723 728 748 -hsync +vsync' >> ~/resolution_fix
-echo 'xrandr --addmode HDMI1 "1280x720_60.00"' >> ~/resolution_fix
+if test -z ${x_res};
+then
+    x_res="1280"
+fi
+if test -z ${y_res};
+then
+    y_res="720"
+fi
+
+# Forcing resolution to be set correctly
+hdmi_port=$(xrandr -q | grep HDMI | grep " connected" | cut -d' ' -f1);
+if test -z ${hdmi_port};
+then
+    hdmi_port="HDMI1"
+fi
+echo '#!/bin/sh' > ~/resolution_fix
+echo 'xrandr --newmode "${x_res}x${y_res}_60.00"   74.50  ${x_res} 1344 1472 1664  ${y_res} 723 728 748 -hsync +vsync' >> ~/resolution_fix
+echo "xrandr --addmode ${hdmi_port[0]} \"${x_res}x${y_res}_60.00\"" >> ~/resolution_fix
 if test ${rotated} = "y" -o ${rotated} = "Y";
 then
-    echo 'xrandr --output HDMI1 --primary --mode "1280x720_60.00" --rotate left' >> ~/resolution_fix
+    echo "xrandr --output ${hdmi_port[0]} --primary --mode \"${x_res}x${y_res}_60.00\" --rotate left" >> ~/resolution_fix
 else
-    echo 'xrandr --output HDMI1 --primary --mode "1280x720_60.00"' >> ~/resolution_fix
+    echo "xrandr --output ${hdmi_port[0]} --primary --mode \"${x_res}x${y_res}_60.00\"" >> ~/resolution_fix
 fi
 chmod +x ~/resolution_fix
 sudo mv ~/resolution_fix /opt/resolution_fix.sh
