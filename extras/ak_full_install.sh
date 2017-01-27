@@ -4,8 +4,15 @@ os=$(ls /usr/bin/*session)
 if [[ "${os}" =~ "lxsession" ]];
 then
     os="lubuntu"
+    label="Lubuntu"
+    dir="install_list.xenial-lubuntu.16-04"
+    ak_script="ak_zotacnano.sh"
+
 else
     os="ubuntu"
+    label="Ubuntu"
+    dir="install_list.trusty-ubuntu.14-04"
+    ak_script="ak_zotac4port.sh"
 fi;
 
 echo "Downloading install pack to /tmp directory, from http://175.103.28.7/xcloud/zotac/zotac.install_pack.tar"
@@ -30,21 +37,6 @@ echo "Extraction complete"
 sleep 3
 
 clear
-case ${os} in
-ubuntu)
-    label="Ubuntu"
-    dir="install_list.trusty-ubuntu.14-04"
-;;
-lubuntu)
-    label="Lubuntu"
-    dir="install_list.xenial-lubuntu.16-04"
-;;
-*)
-    echo && echo
-    exit
-;;
-esac
-echo
 echo "Installing Andrej's ${label} Additions"
 sleep 3;
 cd /${dir}/
@@ -52,29 +44,8 @@ chmod +x /${dir}/001.install.ads_additions.sh
 sudo ./001.install.ads_additions.sh
 
 clear
-os=$(ls /usr/bin/*session)
-if [[ "${os}" =~ "lxsession" ]];
-then
-    os="lubuntu"
-else
-    os="ubuntu"
-fi;
-script=""
-case ${os} in
-ubuntu)
-    script="ak_zotac4port.sh"
-;;
-lubuntu)
-    script="ak_zotacnano.sh"
-;;
-*)
-    echo && echo
-    exit
-;;
-esac
-
 rm -f ak_patch.sh
-wget -q -O ak_patch.sh http://175.103.28.7/xkloud/zotac/${script} && result="OK" || result="FAIL"
+wget -q -O ak_patch.sh http://175.103.28.7/xkloud/zotac/${ak_script} && result="OK" || result="FAIL"
 if test ${result} != "OK";
 then
     echo "Download of required script ${script} failed. Check internet connection."
