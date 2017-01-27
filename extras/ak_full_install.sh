@@ -48,7 +48,7 @@ rm -f ak_patch.sh
 wget -q -O ak_patch.sh http://175.103.28.7/xkloud/zotac/${ak_script} && result="OK" || result="FAIL"
 if test ${result} != "OK";
 then
-    echo "Download of required script ${script} failed. Check internet connection."
+    echo "Download of required script ${ak_script} failed. Check internet connection."
     echo "If problem persists, ask Andrew Kirkland for assistance"
     echo "skype: djandiek"
     echo "email: andrew.kirkland@movielink.net.au"
