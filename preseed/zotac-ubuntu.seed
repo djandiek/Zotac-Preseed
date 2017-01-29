@@ -1,0 +1,134 @@
+# Unmount drives with active partitions. Without this command all the installation process would stop and require confirmation to unmount drives that are already mounted.
+d-i preseed/early_command string umount /media || true ; \
+dd if=/dev/zero of=/dev/sda bs=512 count=1 conv=notrunc ;
+
+####################################################################
+# General
+####################################################################
+
+d-i finish-install/reboot_in_progress note
+# Once installation is complete, automatically power off.
+#d-i debian-installer/exit/poweroff boolean true
+d-i ubiquity/summary note
+ubiquity ubiquity/reboot boolean true
+ubiquity ubiquity/poweroff boolean true
+
+# Automatically download and install stable updates?
+unattended-upgrades unattended-upgrades/enable_auto_updates boolean true
+
+####################################################################
+# Installation Sources
+####################################################################
+
+# Configure the sources.list
+d-i mirror/country string manual
+d-i mirror/http/hostname string mirror.aarnet.edu.au
+d-i mirror/http/directory string /ubuntu/
+d-i apt-setup/use_mirror boolean true
+d-i apt-setup/mirror/error select Change mirror
+d-i apt-setup/multiverse boolean true
+d-i apt-setup/restricted boolean true
+d-i apt-setup/universe boolean true
+d-i apt-setup/partner boolean true
+
+####################################################################
+# Networking
+####################################################################
+
+# Network Configuration
+d-i netcfg/enable boolean true
+d-i netcfg/choose_interface select auto
+d-i netcfg/get_hostname string eze-zbox
+d-i netcfg/get_domain string movielink.eze-zbox.local
+d-i netcfg/disable_dhcp boolean false
+
+####################################################################
+# Disk Partitioning / Boot loader
+####################################################################
+
+### Disk Partitioning ###
+
+# Configure auto partitioner
+ubiquity partman-lvm/device_remove_lvm boolean true
+ubiquity partman-md/device_remove_md boolean true
+ubiquity partman-auto/init_automatically_partition select Guided - use entire disk
+ubiquity partman-auto/disk string /dev/sda
+ubiquity partman-auto/method string regular
+ubiquity partman-auto/choose_recipe select All files in one partition (recommended for new users)
+ubiquity partman/confirm_write_new_label boolean true
+ubiquity partman/choose_partition select Finish partitioning and write changes to disk
+ubiquity partman/confirm boolean true
+d-i partman-partitioning/confirm_write_new_label boolean true
+d-i partman/choose_partition select finish
+d-i partman/confirm boolean true
+d-i partman/confirm_nooverwrite boolean true
+
+####################################################################
+# Localizations / Timezone
+####################################################################
+
+### Keyboard selection ###
+d-i keyboard-configuration/layoutcode string us
+d-i keyboard-configuration/variantcode string
+
+### Locale ###
+d-i debian-installer/locale string en_US
+
+### Timezone ###
+d-i time/zone select Australia/Melbourne
+d-i clock-setup/utc boolean true
+d-i clock-setup/ntp boolean false
+d-i console-setup/ask_detect boolean false
+d-i console-setup/layoutcode string us
+
+d-i localechooser/supported-locales multiselect en_US.UTF-8
+
+### OEM-Config
+d-i oem-config/enable boolean true
+d-i oem-config/remove boolean true
+d-i oem-config/remove_extras boolean false
+
+d-i oem-config/install-language-support boolean true
+d-i ubiquity/only-show-installable-languages boolean true
+
+####################################################################
+# User Creation
+####################################################################
+
+# Root User
+d-i passwd/root-login boolean false
+
+# Normal User
+d-i passwd/user-fullname string ADS Media Player
+d-i passwd/username string eze_zbox
+#d-i passwd/user-password password zz_3142_eze:11
+#d-i passwd/user-password-again password zz_3142_eze:11
+d-i passwd/user-password-crypted password $6$EADd/brbcymT$jvaA6UTntdm61nrWu/XP3k5GPJ9vpY/oKcV2SN5CbCeA.H8Q1dyZeygOV3AHsPLGz8TnACTr6J1lFPe/rMGy0/
+d-i passwd/auto-login boolean true
+d-i user-setup/allow-password-weak boolean true
+
+####################################################################
+# Some extras
+####################################################################
+tasksel tasksel/first multiselect ubuntu-desktop
+d-i pkgsel/install-recommends false
+d-i pkgsel/include string openssh-server build-essential
+
+# installing languages
+# Language pack selection
+d-i pkgsel/language-packs multiselect en
+
+# Whether to upgrade packages after debootstrap.
+# Allowed values: none, safe-upgrade, full-upgrade
+d-i pkgsel/upgrade select safe-upgrade
+
+# Policy for applying updates. May be "none" (no automatic updates),
+d-i pkgsel/update-policy select unattended-upgrades
+
+#d-i preseed/late_command string
+ubiquity ubiquity/success_command string \
+in-target mkdir -p /home/eze_zbox/Desktop ; \
+in-target wget -O /home/eze_zbox/Desktop/zotac-setup.desktop http://175.103.28.7/xkloud/zotac/ak-zotac-setup.desktop ; \
+in-target chmod +x /home/eze_zbox/Desktop/zotac-setup.desktop ; \
+in-target wget -O /home/eze_zbox/menu.sh http://175.103.28.7/xkloud/zotac/ak_menu.sh ; \
+in-target chmod +x /home/eze_zbox/menu.sh ;
