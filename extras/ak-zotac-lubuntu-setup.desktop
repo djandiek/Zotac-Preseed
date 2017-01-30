@@ -1,0 +1,9 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Zotac Setup
+GenericName=setup
+Comment=Zotac Setup
+Exec=/usr/bin/lxterminal -e /home/eze_zbox/menu.sh --full-screen
+Terminal=false
+Type=Application
+Categories=Application;
